@@ -24,7 +24,7 @@ public class ATM {
                 throw new RuntimeException("Please withdraw balance before closing the account");
             }
         } else {
-            throw new RuntimeException("User not found"...);
+            throw new RuntimeException("User not found");
         }
     }
 }
