@@ -27,4 +27,22 @@ public class ATM {
             throw new RuntimeException("User not found");
         }
     }
+
+    public double checkBalance(String userId) {
+        if (accounts.containsKey(userId)) {
+            return accounts.get(userId);
+        } else {
+            throw new RuntimeException("User not found");
+        }
+    }
+
+    public double depositMoney(String userId, double amount) {
+        if (accounts.containsKey(userId)) {
+            double balance = accounts.get(userId);
+            accounts.put(userId, balance + amount);
+            return balance;
+        } else {
+            throw new RuntimeException("User not found");
+        }
+    }
 }
