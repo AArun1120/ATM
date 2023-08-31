@@ -11,7 +11,7 @@ public class ATM {
         if (!accounts.containsKey(userId)) {
             accounts.put(userId, amount);
         } else {
-            throw new RuntimeException("User already exists");
+            throw new RuntimeException("User already exists!");
         }
     }
 
@@ -21,10 +21,10 @@ public class ATM {
             if (balance == 0) {
                 accounts.remove(userId);
             } else {
-                throw new RuntimeException("Please withdraw balance before closing the account");
+                throw new RuntimeException("Please withdraw entirety of balance before closing the account!");
             }
         } else {
-            throw new RuntimeException("User not found");
+            throw new RuntimeException("User not found!");
         }
     }
 
@@ -32,7 +32,7 @@ public class ATM {
         if (accounts.containsKey(userId)) {
             return accounts.get(userId);
         } else {
-            throw new RuntimeException("User not found");
+            throw new RuntimeException("User not found!");
         }
     }
 
@@ -42,7 +42,21 @@ public class ATM {
             accounts.put(userId, balance + amount);
             return balance;
         } else {
-            throw new RuntimeException("User not found");
+            throw new RuntimeException("User not found!");
+        }
+    }
+
+    public double withdrawMoney(String userId, double amount) {
+        if (accounts.containsKey(userId)) {
+            double balance = accounts.get(userId);
+            if (balance >= amount) {
+                accounts.put(userId, balance - amount);
+                return amount;
+            } else {
+                throw new RuntimeException("Insufficient funds!");
+            }
+        } else {
+            throw new RuntimeException("User not found!");
         }
     }
 }
