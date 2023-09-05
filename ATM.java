@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class ATM {
@@ -42,7 +45,7 @@ public class ATM {
             accounts.put(userId, balance + amount);
             return balance;
         } else {
-            throw new RuntimeException("User not found!");
+            throw new RuntimeException("User not found! Ur broke AF!");
         }
     }
 
@@ -53,10 +56,31 @@ public class ATM {
                 accounts.put(userId, balance - amount);
                 return amount;
             } else {
-                throw new RuntimeException("Insufficient funds!");
+                throw new RuntimeException("Ur Broke AF kid!");
             }
         } else {
             throw new RuntimeException("User not found!");
         }
+    }
+
+    public boolean transferMoney(String fromAccount, String toAccount, double amount) {
+        if (accounts.containsKey(fromAccount) && accounts.containsKey(toAccount)) {
+            {
+                double withdrawnAmount = withdrawMoney(fromAccount, amount);
+                depositMoney(toAccount, withdrawnAmount);
+                return true;
+            }
+        } else {
+            throw new RuntimeException("One or both accounts not found!");
+        }
+    }
+
+    public void audit() throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter("AccountAudit.txt"));
+        for (Map.Entry<String, Double> entry : accounts.entrySet()) {
+            writer.write(entry.getKey() + ": " + entry.getValue());
+            writer.newLine();
+        }
+        writer.close();
     }
 }
